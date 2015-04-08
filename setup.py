@@ -10,7 +10,7 @@ import sys
 
 from setuptools import setup, find_packages
 
-import jiracli
+#import error: six 1.4.1 is installed but six>=1.5.2 is required
 
 import versioneer
 
