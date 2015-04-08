@@ -158,8 +158,9 @@ def build_parser():
                      help='parent of new issue')
 
     update.add_argument('issue', help='the jira issue to act on')
-    update.add_argument('--comment', dest='issue_comment',
-                        action='store_true', help='add a comment to an existing issue')
+    # JP - support command line comments
+    # update.add_argument('--comment', dest='issue_comment', action='store_true', help='add a comment to an existing issue')
+    update.add_argument('--comment', dest='issue_comment', help='add a comment to an existing issue')
     update.add_argument('--priority', '--priority', dest='issue_priority',
                         help='change the priority of an issue')
     update.add_argument('--component', dest='issue_components',

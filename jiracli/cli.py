@@ -241,8 +241,9 @@ def get_comments ( jira_id ):
     return jiraobj.service.getComments ( token , jira_id )
 
 def add_comment( jira_id, comment ):
-    if comment == default_editor_text:
-        comment = get_text_from_editor(default_editor_text % ("comment"))
+    # TODO (JP) - if nothing passed in for comment, open editor
+    # if comment == default_editor_text:
+    #     comment = get_text_from_editor(default_editor_text % ("comment"))
     res = jiraobj.service.addComment( token, jira_id, comment )
     if res:
         return "%s added to %s" % (comment, jira_id)
@@ -272,7 +273,9 @@ here"
 """
     parser = optparse.OptionParser()
     parser.usage = example_usage
-    parser.add_option("-c", "--comment", dest="comment", help="comment on a jira", action="store_true")
+    # JP - allow comment to be passed in: -comment="this is a comment"
+    # parser.add_option("-c", "--comment", dest="comment", help="comment on a jira", action="store_true")
+    parser.add_option("-c", "--comment", dest="comment", help="comment on a jira", default=None)
     parser.add_option("", "--comments-only", dest="commentsonly", help="show only the comments for a jira",
                       action="store_true")
     parser.add_option("-j", "--jira-id", dest="jira_id", help="issue id")
@@ -325,7 +328,9 @@ here"
             elif opts.comment:
                 if not opts.jira_id:
                     parser.error("specify the jira to comment on")
-                print(add_comment(opts.jira_id, " ".join(args) if args else default_editor_text))
+                # JP - use comment passed-in
+                # print(add_comment(opts.jira_id, " ".join(args) if args else default_editor_text))
+                print(add_comment(opts.jira_id, opts.comment))
             elif opts.search or opts.search_jql:
                 project = opts.jira_project
                 if (project is None):
